@@ -11,7 +11,7 @@ export const authMiddleware = async (
   if (!tokenId) return next(ApiError.UnauthorizedError());
 
   const decodedToken = await firebaseService.parseIdToken(tokenId);
-  if (!decodedToken) return next(ApiError.UnauthorizedError());
+  if (!decodedToken) return next(ApiError.IdTokenExpiredOrInvalid());
 
   req.body.tokenId = "";
   req.body["decodedToken"] = decodedToken;

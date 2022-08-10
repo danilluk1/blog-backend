@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
   signInWithPopup,
   UserCredential,
 } from "firebase/auth";
@@ -8,7 +9,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../..";
-import styles from "./Register.module.scss";
+import styles from "./Login.module.scss";
 
 interface RegistrationInfo {
   email: string;
@@ -16,7 +17,7 @@ interface RegistrationInfo {
   rememberMe: boolean;
 }
 
-const Register = () => {
+const Login = () => {
   const { register, handleSubmit } = useForm<RegistrationInfo>();
   const navigate = useNavigate();
   /*add support of onAuthStateChanged ???*/
@@ -25,10 +26,9 @@ const Register = () => {
   const onSubmitForm = (data: RegistrationInfo) => {
     const { email, password, rememberMe } = data;
 
-    createUserWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential: UserCredential) => {
         const { user } = userCredential;
-        console.log(user);
 
         user
           .getIdToken()
@@ -44,7 +44,7 @@ const Register = () => {
       });
   };
 
-  const signUpWithGoogle = () => {
+  const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -52,7 +52,9 @@ const Register = () => {
         navigate("/");
         user
           .getIdToken()
-          .then((idToken) => {})
+          .then((idToken) => {
+            //send token to backend
+          })
           .catch((error) => {
             console.log(error);
           });
@@ -68,7 +70,7 @@ const Register = () => {
       <div className={styles.main}>
         <div className={styles.main__leftBlock}></div>
         <div className={styles.main__rightBlock}>
-          <h1>Sign up</h1>
+          <h1>Sign In</h1>
           <div className={styles.main__rightBlock__formBlock}>
             <form onSubmit={handleSubmit(onSubmitForm)}>
               <input {...register("email")} placeholder="Email address" />
@@ -78,17 +80,17 @@ const Register = () => {
                 <label>Remember Me</label>
               </div>
               <button className={styles.main__rightBlock__signUp} type="submit">
-                SIGN UP
+                SIGN IN
               </button>
               <button
                 className={styles.main__rightBlock__signUpGoogle}
                 type="button"
-                onClick={signUpWithGoogle}
+                onClick={signInWithGoogle}
               >
                 Sign in with Google
               </button>
               <p>
-                Already have an account <Link to="/login">Sign in</Link>
+                Already have an account <Link to="/register">Sign up</Link>
               </p>
             </form>
           </div>
@@ -98,4 +100,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

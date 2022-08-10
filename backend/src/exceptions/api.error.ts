@@ -12,4 +12,8 @@ export default class ApiError extends Error {
   static UnauthorizedError() {
     return new ApiError(401, "Unauthorized error", []);
   }
+
+  static IdTokenExpiredOrInvalid() {
+    return new ApiError(402, "token expired or invalid", []);
+  }
 }

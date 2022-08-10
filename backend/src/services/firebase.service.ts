@@ -3,11 +3,11 @@ import { DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
 
 class FirebaseService {
   async parseIdToken(tokenId: string): Promise<DecodedIdToken | null> {
-    try{
+    try {
       const decodedToken = await admin.auth().verifyIdToken(tokenId);
       return decodedToken;
-    }
-    catch(err){
+    } catch (err) {
+      console.log(err);
       return null;
     }
   }

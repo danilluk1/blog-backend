@@ -1,0 +1,15 @@
+.root{
+  width: 100vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mainContainer{
+  width: 80vw;
+  margin: 0 auto;
+  height: auto;
+  background-color: cyan;
+  display: flex;
+}

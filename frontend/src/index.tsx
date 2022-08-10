@@ -2,11 +2,16 @@ import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 
 import { initializeApp } from "firebase/app";
-import { Auth, getAuth } from "firebase/auth";
+import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
 
 import App from "./App";
 
 import "./scss/index.scss";
+import { ApplicationPosts } from "./models/Post";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import MainLayout from "./common/components/MainLayout";
+import Header from "./pages/main/header/Header";
+import Register from "./pages/login/Login";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCER5AvcR39TwFDkFmaxeT-5hE1Q_Coql4",
@@ -22,12 +27,12 @@ interface AppContextInterface {
   auth: Auth;
 }
 
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+
 export const Context = createContext<AppContextInterface>({
-  auth
+  auth,
 });
 
 const root = ReactDOM.createRoot(

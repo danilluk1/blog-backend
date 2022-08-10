@@ -1,0 +1,17 @@
+.root{
+  width: 100%;
+  height: 600px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: stretch;
+
+  .aboutPost{
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}

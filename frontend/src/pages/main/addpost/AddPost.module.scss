@@ -1,0 +1,48 @@
+.root{
+  margin-top: 0px;
+  width: 100vw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: cyan;
+  &__mainContainer{
+    background-color: white;
+    padding: 20px;
+    width: 80vw;
+    margin: 0 auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+
+    &__aboutPost{
+      height: 50px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      img {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+      }
+      div{
+        margin-right: 15px;
+      }
+    }
+
+    &__postContent{
+      margin-top: 20px;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: stretch;
+      
+      button{
+        width: 300px;
+      }
+    }
+  }
+  
+}

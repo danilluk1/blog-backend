@@ -3,6 +3,7 @@
 
 
 .root{
+  z-index: 9999999;
   width: 100vw;
   height: $header-height;
 
@@ -63,4 +64,14 @@
 .userIcon{
   @extend %icon;
   background: url(../../../assets/icons/user.svg) no-repeat center;
+}
+
+.logoutIcon{
+  @extend %icon;
+  background: url(../../../assets/icons/logout.svg) no-repeat center;
+}
+
+.addIcon{
+  @extend %icon;
+  background: url(../../../assets/icons/plus.svg) no-repeat center;
 }
