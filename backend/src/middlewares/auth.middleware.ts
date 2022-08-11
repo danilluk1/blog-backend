@@ -7,14 +7,22 @@ export const authMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { tokenId } = req.body;
+  const authStr = req.headers["authorization"];
+  if (!authStr) return next(ApiError.UnauthorizedError());
+
+  const tokenId = authStr.split(" ").pop();
   if (!tokenId) return next(ApiError.UnauthorizedError());
 
   const decodedToken = await firebaseService.parseIdToken(tokenId);
   if (!decodedToken) return next(ApiError.IdTokenExpiredOrInvalid());
 
-  req.body.tokenId = "";
-  req.body["decodedToken"] = decodedToken;
+  req.body["user"] = {
+    name: decodedToken.name,
+    avatar: decodedToken.avatar,
+    email: decodedToken.email,
+    email_verified: decodedToken.email_verified,
+    uid: decodedToken.uid,
+  };
 
   next();
 };

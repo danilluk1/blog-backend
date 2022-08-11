@@ -1,16 +1,16 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "..";
 
-export const BACKEND_URL = "http://localhost:5000";
+export const BACKEND_URL = "http://localhost:5000"; //move to .env
 
-export const $axios = axios.create({
+export const $axios: AxiosInstance = axios.create({
   baseURL: BACKEND_URL,
 });
 
 $axios.interceptors.request.use((config: AxiosRequestConfig) => {
   if (!config.headers) return;
 
-  let context =
-    (config.headers.authorization = `Bearer ${auth.currentUser.to}`);
+  config.headers.authorization = `Bearer ${localStorage.getItem('idToken')}`;
+
+  return config;
 });

@@ -26,6 +26,9 @@
     "typeorm": "^0.3.7"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "eslint": "^8.21.0",
     "nodemon": "^2.0.19"
   },
   "type": "module"

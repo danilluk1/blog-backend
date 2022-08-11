@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../..";
+import { $axios } from "../../api/axios";
 import styles from "./Login.module.scss";
 
 interface RegistrationInfo {
@@ -53,7 +54,8 @@ const Login = () => {
         user
           .getIdToken()
           .then((idToken) => {
-            //send token to backend
+            localStorage.setItem("idToken", idToken);
+            console.log(idToken);
           })
           .catch((error) => {
             console.log(error);

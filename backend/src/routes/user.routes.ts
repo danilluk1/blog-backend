@@ -4,11 +4,14 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 
 export const userRouter: Router = Router();
 
-userRouter.get("/users", authMiddleware, (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.body.decodedToken);
-  res.status(200).json({
-    message: "Success",
-  });
-});
+userRouter.get(
+  "/users",
+  authMiddleware,
+  (req: Request, res: Response, next: NextFunction) => {
+    res.status(200).json({
+      message: "Success",
+    });
+  }
+);
 
-userRouter.get("/user/:uid", authMiddleware, userController.getUser)
+userRouter.get("/user/:uid", authMiddleware, userController.getUser);
