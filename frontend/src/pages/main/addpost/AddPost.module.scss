@@ -42,6 +42,17 @@
       button{
         width: 300px;
       }
+
+      &__statusBlock{
+        animation-duration: 1.5s;
+        animation-name: showIn;
+        @keyframes showIn {
+            from {
+                transform: rotateX(-90deg);
+                
+            }
+        }
+      }
     }
   }
   

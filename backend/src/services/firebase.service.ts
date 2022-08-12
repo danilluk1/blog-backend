@@ -7,7 +7,15 @@ class FirebaseService {
       const decodedToken = await admin.auth().verifyIdToken(tokenId);
       return decodedToken;
     } catch (err) {
-      console.log(err);
+      return null;
+    }
+  }
+
+  async getUser(uid: string) {
+    try {
+      const user = await admin.auth().getUser(uid);
+      return user;
+    } catch (err) {
       return null;
     }
   }

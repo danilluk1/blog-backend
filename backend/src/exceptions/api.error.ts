@@ -14,6 +14,14 @@ export default class ApiError extends Error {
   }
 
   static IdTokenExpiredOrInvalid() {
-    return new ApiError(402, "token expired or invalid", []);
+    return new ApiError(402, "Token expired or invalid", []);
+  }
+
+  static DbError() {
+    return new ApiError(500, "Some internal db error", []);
+  }
+
+  static BadRequest() {
+    return new ApiError(404, "Bad request", []);
   }
 }

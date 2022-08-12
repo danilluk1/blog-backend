@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
   Relation,
+  UpdateDateColumn,
 } from "typeorm";
 import { Comment } from "./comment.model";
 
@@ -41,12 +43,12 @@ export class Post {
   })
   dislikes: number;
 
-  @Column({
+  @CreateDateColumn({
     type: "timestamp with time zone",
   })
   created_at: Date;
 
-  @Column({
+  @UpdateDateColumn({
     type: "timestamp with time zone",
   })
   updated_at: Date;

@@ -4,7 +4,8 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 
 export const postRouter = Router();
 
-postRouter.get('/posts', authMiddleware, postController.getPosts);
-postRouter.post('/posts', authMiddleware, postController.newPost);
-postRouter.get('/posts/:id', authMiddleware, postController.getPost);
-postRouter.put('/posts/:id', authMiddleware, postController.updatePost);
+postRouter.get("/posts", authMiddleware, postController.getPosts);
+postRouter.post("/posts", authMiddleware, postController.newPost);
+postRouter.get("/post/:id", authMiddleware, postController.getPost);
+postRouter.put("/post/:id", authMiddleware, postController.updatePost);
+postRouter.delete("/post/:delete", autMiddleware, postController.deletePost);

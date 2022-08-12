@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Relation} from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Relation,
+  UpdateDateColumn,
+} from "typeorm";
 import { Post } from "./post.model";
 
 @Entity("comments")
@@ -35,17 +43,16 @@ export class Comment {
   })
   dislikes: number;
 
-  @Column({
+  @CreateDateColumn({
     type: "timestamp with time zone",
   })
   created_at: Date;
 
-  @Column({
+  @UpdateDateColumn({
     type: "timestamp with time zone",
   })
   updated_at: Date;
 
   @ManyToOne(() => Post, (post) => post.id)
   post: Relation<Post>;
-
 }

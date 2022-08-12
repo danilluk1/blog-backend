@@ -1,33 +1,70 @@
 import { Request, Response, NextFunction } from "express";
-import { Repository } from "typeorm";
-import { appDataSource } from "../db/db-source";
 import ApiError from "../exceptions/api.error";
-import { Post } from "../models/post.model";
+import postService from "../services/post.service";
 
 class PostController {
-  postRepo: Repository<Post> = appDataSource.getRepository(Post); //Can be implemented using DI
-
   async newPost(req: Request, res: Response, next: NextFunction) {
-    const { postData, user } = req.body;
-    if (!postData || !user) return next(ApiError.UnauthorizedError());
+    try {
+      const { postData, user } = req.body;
+      if (!postData || !user) return next(ApiError.UnauthorizedError());
 
-    const newPost = new Post();
-    newPost.author = user.uid;
-    newPost.markdown = postData.markdown;
-    newPost.title = postData.title;
+      await postService.newPost(postData, user);
 
-    this.postRepo.save(newPost);
-
-    return res.status(200).json({
-      message: "Post created successfully",
-    });
+      return res.status(200).json({
+        message: "Post created successfully",
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  async getPosts(req: Request, res: Response, next: NextFunction) {}
+  async getPosts(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { page } = req.params;
+      if (!page || Number(page) <= 0) return next(ApiError.BadRequest());
 
-  async getPost(req: Request, res: Response, next: NextFunction) {}
+      const posts = await postService.getPosts(page);
 
-  async updatePost(req: Request, res: Response, next: NextFunction) {}
+      return res.status(200).json({
+        posts,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async getPost(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const post = await postService.getPost(Number(id));
+
+      return res.status(200).json({
+        post,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async updatePost(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { postData, user } = req.body;
+      if (!postData || !user) return next(ApiError.UnauthorizedError());
+
+      await postService.updatePost(postData, user);
+
+      return res.status(200).json({
+        message: "Post updated successfully",
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async deletePost(req: Request, res: Response, next: NextFunction) {
+    try {
+    } catch (err) {}
+  }
 }
 
 export default new PostController();

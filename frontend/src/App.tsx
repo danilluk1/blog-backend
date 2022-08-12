@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { Context } from ".";
 import MainLayout from "./common/components/MainLayout";
 import Register from "./pages/register/Register";
@@ -11,6 +11,36 @@ import AddPost from "./pages/main/addpost/AddPost";
 function App() {
   const { auth } = useContext(Context);
   const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((authenticated) => {
+      if (authenticated) {
+        authenticated
+          .getIdToken()
+          .then((idToken) => {
+            localStorage.setItem("idToken", idToken);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+
+    auth.onIdTokenChanged((user) => {
+      if (user) {
+        user
+          .getIdToken()
+          .then((idToken) => {
+            console.log(idToken);
+            localStorage.setItem("idToken", idToken);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

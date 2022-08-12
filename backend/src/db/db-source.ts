@@ -17,7 +17,7 @@ export const appDataSource = new DataSource({
   username: process.env.db_username,
   password: process.env.db_password,
   database: process.env.db_name,
-  synchronize: true, //enable this only for debugging purposes
+  synchronize: false, //enable this only for debugging purposes
   logging: true,
   entities: [Post, Comment],
 });

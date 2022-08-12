@@ -27,44 +27,16 @@ const Login = () => {
   const onSubmitForm = (data: RegistrationInfo) => {
     const { email, password, rememberMe } = data;
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential: UserCredential) => {
-        const { user } = userCredential;
-
-        user
-          .getIdToken()
-          .then((idToken) => {
-            navigate("/");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    signInWithEmailAndPassword(auth, email, password).then((user) => {
+      if (user) navigate("/");
+    });
   };
 
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
-        navigate("/");
-        user
-          .getIdToken()
-          .then((idToken) => {
-            localStorage.setItem("idToken", idToken);
-            console.log(idToken);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(error);
-      });
+    signInWithPopup(auth, provider).then((user) => {
+      if (user) navigate("/");
+    });
   };
 
   return (
