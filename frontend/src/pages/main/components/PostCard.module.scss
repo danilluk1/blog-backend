@@ -3,7 +3,7 @@
   height: 600px;
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: stretch;
 
@@ -14,4 +14,40 @@
     justify-content: flex-start;
     align-items: center;
   }
+
+  .lowerBlock{
+    border: 1px solid cyan;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+
+%icon{
+  width: 25px;
+  height: 25px;
+
+  border-radius: 8px;
+  margin-right: 15px;
+  cursor: pointer;
+
+  &:hover{
+    border: 1px solid cyan;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+.likeIcon{
+  @extend %icon;
+  background: url(../../../assets/icons/like.svg) no-repeat center;
+}
+
+.disIcon{
+  @extend %icon;
+  background: url(../../../assets/icons/dislike.svg) no-repeat center;
 }

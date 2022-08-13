@@ -20,10 +20,15 @@ class PostController {
 
   async getPosts(req: Request, res: Response, next: NextFunction) {
     try {
-      const { page } = req.params;
-      if (!page || Number(page) <= 0) return next(ApiError.BadRequest());
+      const page = req.query.page;
+      const limit = req.query.limit;
+      if (!page || isNaN(Number(page)) || !limit || isNaN(Number(limit)))
+        return next(ApiError.BadRequest());
 
-      const posts = await postService.getPosts(page);
+      if (Number(page) <= 0 || Number(limit) <= 0)
+        return next(ApiError.BadRequest());
+
+      const posts = await postService.getPosts(Number(page), Number(limit));
 
       return res.status(200).json({
         posts,

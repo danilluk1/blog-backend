@@ -14,8 +14,19 @@ class PostService {
     await postRepo.save(newPost);
   }
 
-  async getPosts(page: number){
-    const 
+  async getPosts(page: number, limit: number) {
+    const postRepo = appDataSource.getRepository(Post);
+    const posts = await postRepo.find({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    const [_, totalPosts] = await postRepo.findAndCount({});
+    const totalPages = Math.ceil(totalPosts / limit);
+
+    return {
+      pages: { posts_count: totalPosts, pages_count: totalPages },
+      posts,
+    };
   }
 
   async getPost(postId: number) {

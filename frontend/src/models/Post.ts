@@ -5,9 +5,12 @@ export interface Post{
   created_at: string;
   updated_at: string;
 
-  author_uid: string;
-  avatar: string;
-  author_name: string;
+  title: string;
+  markdown: string;
+
+  author: string;
+  avatar?: string;
+  author_name?: string;
 }
 
 export interface ApplicationPosts{
